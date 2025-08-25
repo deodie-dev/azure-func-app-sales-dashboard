@@ -190,7 +190,7 @@ def get_deal_activities_max_id(conn, cursor):
     # logging.info(deals_dict)
     return deals_dict
 
-# git test
+
 def get_deal_automation_max_id(conn, cursor):
 
     select_query = """

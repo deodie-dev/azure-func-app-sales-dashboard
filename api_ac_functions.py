@@ -70,7 +70,6 @@ def get_contact_automations(conn, cursor, contact_id, max_id=None):
 
     return should_update_deal
 
-# git test
 def get_deal_activities(conn, cursor, deal_id, max_id=None):
     offset = 0
     has_more = True
