@@ -41,27 +41,27 @@ def get_contact_automations(conn, cursor, contact_id, max_id=None):
         response = requests.get(url, headers=AC_HEADERS)
         # time.sleep(1)
         if response.status_code != 200:
-            print(f"Error {response.status_code}: {response.text}")
+            logging.error(f"Error {response.status_code}: {response.text}")
             break
 
         data = response.json()
         automations = data.get("contactAutomations", [])
 
         if not automations:
-            print("No more contact automations found.")
+            logging.info("No more contact automations found.")
             break
         
         for ca in automations:
             mID = int(ca.get('id'))
-            print(f"AUTOMATION - API: {mID} | SQL Max ID: {max_id}")
+            logging.info(f"AUTOMATION - API: {mID} | SQL Max ID: {max_id}")
             if max_id:
                 if mID > max_id:
                     should_update_deal = True
                     insert_contact_automation(conn, cursor, ca)
-                    print(f"Inserted automation ID: {ca.get('id')} for contact {contact_id}. Adddate is {ca.get('adddate')}")
+                    logging.info(f"Inserted automation ID: {ca.get('id')} for contact {contact_id}. Adddate is {ca.get('adddate')}")
             else:
                 insert_contact_automation(conn, cursor, ca)
-                print(f"Inserted automation ID: {ca.get('id')} for contact {contact_id}. Adddate is {ca.get('adddate')}")
+                logging.info(f"Inserted automation ID: {ca.get('id')} for contact {contact_id}. Adddate is {ca.get('adddate')}")
 
         if len(automations) < 100:
             has_more = False
@@ -70,7 +70,7 @@ def get_contact_automations(conn, cursor, contact_id, max_id=None):
 
     return should_update_deal
 
-
+# git test
 def get_deal_activities(conn, cursor, deal_id, max_id=None):
     offset = 0
     has_more = True
@@ -81,27 +81,27 @@ def get_deal_activities(conn, cursor, deal_id, max_id=None):
         response = requests.get(url, headers=AC_HEADERS)
         # time.sleep(1)
         if response.status_code != 200:
-            print(f"Error: {response.status_code} - {response.text}")
+            logging.error(f"Error: {response.status_code} - {response.text}")
             break
 
         data = response.json()
         activities = data.get("dealActivities", [])
 
         if not activities:
-            print("No activities found.")
+            logging.info("No activities found.")
             break
 
         for activity in activities:
             mID = int(activity.get('id'))
-            print(f"ACTIVITIES - API: {mID} | SQL Max ID: {max_id}")
+            logging.info(f"ACTIVITIES - API: {mID} | SQL Max ID: {max_id}")
             if max_id:
                 if mID > max_id:
                     should_update_deal = True
                     insert_deal_activity(conn, cursor, activity)
-                    print(f"Inserted activity ID: {activity.get('id')} for deal {deal_id}. Cdate is {activity.get('cdate')}")
+                    logging.info(f"Inserted activity ID: {activity.get('id')} for deal {deal_id}. Cdate is {activity.get('cdate')}")
             else:
                 insert_deal_activity(conn, cursor, activity)
-                print(f"Inserted activity ID: {activity.get('id')} for deal {deal_id}. Cdate is {activity.get('cdate')}")
+                logging.info(f"Inserted activity ID: {activity.get('id')} for deal {deal_id}. Cdate is {activity.get('cdate')}")
                 
 
         # Pagination check

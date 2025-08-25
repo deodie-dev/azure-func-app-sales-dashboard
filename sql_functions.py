@@ -101,6 +101,7 @@ def insert_deal_activity(conn, cursor, activity):
     except Exception as e:
         logging.error(f"Error inserting deal activity {activity.get('id')}: {e}")
         return False
+    
 
 def insert_contact_automation(conn, cursor, ca):
 
@@ -138,6 +139,7 @@ def insert_contact_automation(conn, cursor, ca):
     except Exception as e:
         logging.error(f"Error inserting contact automation {ca.get('id')}: {e}")
         return False
+    
 
 def update_deal (cursor, conn, deal):
     try:
@@ -176,40 +178,6 @@ def get_deals_list(conn, cursor):
         return []
 
 
-# def get_deal_activities_max_cdate(conn, cursor):
-
-#     try:
-#         select_query = """
-#             SELECT d_id, MAX(CAST(cdate AS DATETIME)) AS latest_cdate
-#             FROM tblDealActivities
-#             GROUP BY d_id
-#         """
-#         cursor.execute(select_query)
-#         deals_dict = {row[0]: row[1] for row in cursor.fetchall()}
-
-#         return deals_dict
-#     except Exception as e:
-#         logging.error(f"Error fetching deal activities max cdate: {e}")
-#         return {}
-
-
-# def get_deal_automation_max_cdate(conn, cursor):
-
-#     try:
-#         select_query = """
-#             SELECT contact, MAX(CAST(adddate AS DATETIME)) AS latest_adddate
-#             FROM tblContactAutomations
-#             GROUP BY contact
-#         """
-#         cursor.execute(select_query)
-#         deals_dict = {row[0]: row[1] for row in cursor.fetchall()}
-
-#         return deals_dict
-#     except Exception as e:
-#         logging.error(f"Error fetching contact automations max adddate: {e}")
-#         return {}
-
-
 def get_deal_activities_max_id(conn, cursor):
 
     select_query = """
@@ -219,10 +187,10 @@ def get_deal_activities_max_id(conn, cursor):
     """
     cursor.execute(select_query)
     deals_dict = {row[0]: row[1] for row in cursor.fetchall()}
-    print(deals_dict)
+    # logging.info(deals_dict)
     return deals_dict
 
-
+# git test
 def get_deal_automation_max_id(conn, cursor):
 
     select_query = """
@@ -232,5 +200,5 @@ def get_deal_automation_max_id(conn, cursor):
     """
     cursor.execute(select_query)
     deals_dict = {row[0]: row[1] for row in cursor.fetchall()}
-    print(deals_dict)
+    # logging.info(deals_dict)
     return deals_dict
