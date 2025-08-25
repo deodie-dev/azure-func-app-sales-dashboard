@@ -20,16 +20,15 @@ def get_deal_data():
     
     for stage_ID in stage_ID_list:
         # if stage_ID != '67': continue
-        print(f"------------------------------------------------------------- Processing stage: {stage_ID}")
+        logging.info(f"------------------------------------------------------------- Processing stage: {stage_ID}")
         offset = 0
         has_more = True
 
         while has_more:
             url = f"https://theoutperformer.api-us1.com/api/3/deals?filters[group]=8&filters[stage]={stage_ID}&limit=100&offset={offset}"
             response = requests.get(url, headers=AC_HEADERS)
-            # time.sleep(1)
             if response.status_code != 200:
-                print(f"Error: {response.status_code} - {response.text}")
+                logging.error(f"Error: {response.status_code} - {response.text}")
                 break
 
             try:
@@ -37,7 +36,7 @@ def get_deal_data():
                 deals = data.get("deals", [])
 
                 if not deals:
-                    print("No deals found.")
+                    logging.info("No deals found.")
                     break
 
                 for deal in deals:
@@ -47,7 +46,7 @@ def get_deal_data():
                     deal_title = deal.get('title')
 
                     if int(deal_id) in deals_list:
-                        print(f"Checking deal ID: {deal_id}: {deal_title}")
+                        logging.info(f"Checking deal ID: {deal_id}: {deal_title}")
 
                         max_activity_id = deals_last_cdate_dict.get(int(deal_id))
                         need_to_update_a = get_deal_activities(cursor, conn, deal_id, max_activity_id)
@@ -56,18 +55,18 @@ def get_deal_data():
                         need_to_update_b = get_contact_automations(cursor, conn, contact_id, max_automation_id)
 
                         if need_to_update_a or need_to_update_b:
-                            print(f"Updating deal ID: {deal_id}: {deal_title}")
+                            logging.info(f"Updating deal ID: {deal_id}: {deal_title}")
                             update_deal(cursor, conn, deal)
 
                     else:
-                        print(f"Inserting deal with ID: {deal_id}: {deal_title}")
+                        logging.info(f"Inserting deal with ID: {deal_id}: {deal_title}")
                         insert_deal(conn, deal)
 
                         get_deal_activities(cursor, conn, deal_id)
                         get_contact_automations(cursor, conn, contact_id)
 
             except Exception as e:
-                print(f"An error occurred: {str(e)}")
+                logging.error(f"An error occurred: {str(e)}")
                 break
 
             # Check if we've reached the end
