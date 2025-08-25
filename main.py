@@ -26,6 +26,7 @@ def get_deal_data():
 
         while has_more:
             url = f"https://theoutperformer.api-us1.com/api/3/deals?filters[group]=8&filters[stage]={stage_ID}&limit=100&offset={offset}"
+            time.sleep(.5)
             response = requests.get(url, headers=AC_HEADERS)
             if response.status_code != 200:
                 logging.error(f"Error: {response.status_code} - {response.text}")

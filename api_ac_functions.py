@@ -39,7 +39,7 @@ def get_contact_automations(conn, cursor, contact_id, max_id=None):
     while has_more:
         url = f"https://theoutperformer.api-us1.com/api/3/contacts/{contact_id}/contactAutomations?limit=100&offset={offset}"
         response = requests.get(url, headers=AC_HEADERS)
-        # time.sleep(1)
+        time.sleep(.5)
         if response.status_code != 200:
             logging.error(f"Error {response.status_code}: {response.text}")
             break
@@ -78,7 +78,7 @@ def get_deal_activities(conn, cursor, deal_id, max_id=None):
     while has_more:
         url = f"https://theoutperformer.api-us1.com/api/3/deals/{deal_id}/dealActivities?limit=100&offset={offset}"
         response = requests.get(url, headers=AC_HEADERS)
-        # time.sleep(1)
+        time.sleep(.5)
         if response.status_code != 200:
             logging.error(f"Error: {response.status_code} - {response.text}")
             break
@@ -102,8 +102,6 @@ def get_deal_activities(conn, cursor, deal_id, max_id=None):
                 insert_deal_activity(conn, cursor, activity)
                 logging.info(f"Inserted activity ID: {activity.get('id')} for deal {deal_id}. Cdate is {activity.get('cdate')}")
                 
-
-        # Pagination check
         if len(activities) < 100:
             has_more = False
         else:
