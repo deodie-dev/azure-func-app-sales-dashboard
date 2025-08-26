@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime, timezone, timedelta
 
-# git CI test
 def parse_date(date_str):
     if date_str:
         try:
