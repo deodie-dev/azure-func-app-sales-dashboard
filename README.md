@@ -2,7 +2,9 @@
 
 This project automates the extraction, synchronization, and storage of ActiveCampaign sales data into Azure SQL Database for PowerBI analytics. Built using Azure Functions, the solution periodically fetches deals, deal activities, and contact automations from ActiveCampaign, processes them, and updates the SQL database for downstream reporting.
 
----
+## Dashboard
+![Dashboard](https://github.com/deodie-dev/azure-func-app-sales-dashboard/blob/main/images/Page 1.png)
+![Dashboard](https://github.com/deodie-dev/azure-func-app-sales-dashboard/blob/main/images/Page 2.png)
 
 ## Tech Stack
 
@@ -13,7 +15,7 @@ This project automates the extraction, synchronization, and storage of ActiveCam
 - **pyodbc** – SQL Server connectivity.
 - **requests** – HTTP requests to ActiveCampaign API.
 
----
+
 
 ## Project Structure
 
@@ -26,7 +28,7 @@ This project automates the extraction, synchronization, and storage of ActiveCam
 ├── util.py                  # Utility functions (e.g., date parsing)
 ├── requirements.txt         # Python dependencies
 └── README.md                # Project documentation
-```
+
 
 ### `function_app.py`
 - Main Azure Function trigger.
@@ -47,9 +49,9 @@ This project automates the extraction, synchronization, and storage of ActiveCam
 - Inserts and updates records in `tblDeals`, `tblDealActivities`, and `tblContactAutomations`.
 
 ### `util.py`
-- Utility functions, such as robust date parsing.
+- Utility functions, such as date parsing.
 
----
+
 
 ## Workflow Overview
 
@@ -68,7 +70,7 @@ This project automates the extraction, synchronization, and storage of ActiveCam
 5. **Update Azure SQL Database**  
    `sql_functions.py` handles all insert and update operations.
 
----
+
 
 ## Environment Variables
 
@@ -79,13 +81,13 @@ SQL_SERVER=
 SQL_DATABASE=
 SQL_USERNAME=
 SQL_PASSWORD=
-SQL_DRIVER={ODBC Driver 17 for SQL Server}
+SQL_DRIVER={ODBC Driver 18 for SQL Server}
 AC_API_TOKEN=
 RUN_ON_STARTUP=False
 USE_MONITOR=False
 ```
 
----
+
 
 ## Requirements
 
@@ -95,7 +97,7 @@ pip install -r requirements.txt
 
 > Make sure to include `pyodbc`, `requests`, and `azure-functions`.
 
----
+
 
 ## Sample SQL Table Structures
 
@@ -165,27 +167,25 @@ CREATE TABLE tblContactAutomations (
     id INT PRIMARY KEY,
     automation NVARCHAR(255)
 );
-```
 
----
+
 
 ## Deployment
 
 All Python files are deployed inside an **Azure Function App**, which runs automatically on a timer trigger. Environment variables (e.g., SQL and API credentials) are stored securely in the Azure Function configuration settings.
 
----
+
 
 ## Logging
 
 All critical steps and errors are logged using Python's `logging` module and can be viewed in Azure Function App logs.
 
----
+
 
 ## License
 
 This project is for internal use. Please customize according to your organization’s policies.
 
----
 
 ## Author
 
