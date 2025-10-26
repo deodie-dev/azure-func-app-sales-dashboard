@@ -28,7 +28,7 @@ This project automates the extraction, synchronization, and storage of ActiveCam
 ├── util.py                  # Utility functions (e.g., date parsing)
 ├── requirements.txt         # Python dependencies
 └── README.md                # Project documentation
-
+```
 
 ### `function_app.py`
 - Main Azure Function trigger.
@@ -167,7 +167,7 @@ CREATE TABLE tblContactAutomations (
     id INT PRIMARY KEY,
     automation NVARCHAR(255)
 );
-
+```
 
 
 ## Deployment
