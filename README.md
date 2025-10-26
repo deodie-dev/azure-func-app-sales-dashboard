@@ -3,8 +3,8 @@
 This project automates the extraction, synchronization, and storage of ActiveCampaign sales data into Azure SQL Database for PowerBI analytics. Built using Azure Functions, the solution periodically fetches deals, deal activities, and contact automations from ActiveCampaign, processes them, and updates the SQL database for downstream reporting.
 
 ## Dashboard
-![Dashboard](https://github.com/deodie-dev/azure-func-app-sales-dashboard/blob/main/images/Page 1.png)
-![Dashboard](https://github.com/deodie-dev/azure-func-app-sales-dashboard/blob/main/images/Page 2.png)
+![Dashboard page 1](https://github.com/deodie-dev/azure-func-app-sales-dashboard/blob/main/images/Page1.png)
+![Dashboard page 2](https://github.com/deodie-dev/azure-func-app-sales-dashboard/blob/main/images/Page2.png)
 
 ## Tech Stack
 
